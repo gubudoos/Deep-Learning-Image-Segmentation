@@ -7,8 +7,6 @@ import time
 print("=" * 70)
 print("DOWNLOADING FULL COCO 2017 DATASET")
 print("=" * 70)
-print("⏰ Estimated time: 30-60 minutes")
-print("💾 Total size: ~19GB")
 print("")
 
 start_time = time.time()
