@@ -1,0 +1,69 @@
+
+ SECTION 1: Setup / Requirements
+
+ 1) Create a conda env or venv with Python 3.8-3.11 and install dependencies:
+    conda create -n msr_sam python=3.10 -y
+    conda activate msr_sam
+    pip install opencv-python matplotlib pycocotools tqdm pillow
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+    Create this Directory Structure:
+    msr_sam/
+    │
+    ├── models/
+    │   └── sam_vit_b_01ec64.pth
+    │
+    ├── maskscoring_rcnn/         (MSR-CNN repo)
+    │   ├── checkpoints/
+    │   │   └── mask_scoring_rcnn_R-50-FPN_1x.pth
+    │   ├── configs/
+    │   ├── lib/
+    │   └── tools/
+    │
+    ├── segment-anything/         (SAM repo)
+    │
+    ├── images/              # your test images
+    ├── msr_outputs/         # inference results will appear here
+    │
+    └── Ms_sam_project_notebook.ipynb
+
+
+ 2) Clone SAM and install (official):
+    git clone https://github.com/facebookresearch/segment-anything.git
+     download SAM weights (e.g., sam_vit_b_01ec64.pth https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/sams/sam_vit_b_01ec64.pth?download=true) 
+       and place under msr_sam/models/
+
+ 3) Clone Mask Scoring R-CNN (official):
+    git clone https://github.com/zjhuang22/maskscoring_rcnn.git
+    %cd maskscoring_rcnn
+    First build the extensions manually:
+    python setup.py build_ext --inplace
+    python -c "import maskrcnn_benchmark; print('SUCCESS: maskrcnn_benchmark imported successfully')"
+
+ 4) Prepare a small dataset for experiments:
+    - Use a COCO val subset (50-300 images) or Pascal VOC subset
+    - Ensure you have image files in a folder: images/
+
+ 5) Run MSR-CNN inference to generate outputs:
+    - Choose the model: mask_scoring_rcnn_R-50-FPN_1x.pth
+      (https://onedrive.live.com/?authkey=%21AIp9w89BB858UAE&id=1B7A5C8036695F7B%21832&cid=1B7A5C8036695F7B)
+    - Place it inside: maskscoring_rcnn/checkpoints/
+    - From the maskscoring_rcnn/ directory, run inference:
+      python tools/test_net.py \
+    --config-file configs/e2e_mask_scoring_rcnn_R_50_FPN_1x.yaml \
+    --output_dir ../msr_outputs \
+    MODEL.WEIGHT checkpoints/mask_scoring_rcnn_R-50-FPN_1x.pth \
+    TEST.IMS_PER_BATCH 1 \
+    DATASETS.TEST "('coco_2017_val_subset',)"  
+        
+    -What this does:
+      -loads the MSR model
+      -runs it on your selected images
+      -saves predictions in .npz or .json format under: msr_sam/msr_outputs/
+  
+      -Each file typically contains:
+        boxes      → shape (N, 4)
+        masks      → shape (N, H, W) or RLEs
+        scores     → shape (N,)
+        labels     → shape (N,)
+        
