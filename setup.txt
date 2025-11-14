@@ -5,7 +5,7 @@
     conda create -n msr_sam python=3.10 -y
     conda activate msr_sam
     pip install opencv-python matplotlib pycocotools tqdm pillow
-    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 
     Create this Directory Structure:
     msr_sam/
@@ -42,7 +42,7 @@
 
  4) Prepare a small dataset for experiments:
     - Use a COCO val subset (50-300 images) or Pascal VOC subset
-    - Ensure you have image files in a folder: images/
+    - Ensure you have image files in the folder: images/
 
  5) Run MSR-CNN inference to generate outputs:
     - Choose the model: mask_scoring_rcnn_R-50-FPN_1x.pth
