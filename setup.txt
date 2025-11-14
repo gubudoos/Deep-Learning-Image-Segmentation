@@ -55,6 +55,7 @@
     - Choose the model: mask_scoring_rcnn_R-50-FPN_1x.pth
       (https://onedrive.live.com/?authkey=%21AIp9w89BB858UAE&id=1B7A5C8036695F7B%21832&cid=1B7A5C8036695F7B)
     - Place it inside: maskscoring_rcnn/checkpoints/
+    
     - From the maskscoring_rcnn/ directory, run inference:
       python tools/test_net.py \
     --config-file configs/e2e_mask_scoring_rcnn_R_50_FPN_1x.yaml \
