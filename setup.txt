@@ -2,49 +2,56 @@
  SECTION 1: Setup / Requirements
 
  1) Create a conda env or venv with Python 3.8-3.11 and install dependencies:
-    conda create -n msr_sam python=3.10 -y
-    conda activate msr_sam
-    pip install opencv-python matplotlib pycocotools tqdm pillow
-    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+    -conda create -n msr_sam python=3.10 -y
+    -conda activate msr_sam
+    -pip install opencv-python matplotlib pycocotools tqdm pillow
+    -pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 
     Create this Directory Structure:
     msr_sam/
     │
     ├── models/
-    │   └── sam_vit_b_01ec64.pth
+    │   └── sam_vit_b_01ec64.pth        # SAM checkpoint
     │
-    ├── maskscoring_rcnn/         (MSR-CNN repo)
+    ├── maskscoring_rcnn/               # MSR-CNN repository
     │   ├── checkpoints/
     │   │   └── mask_scoring_rcnn_R-50-FPN_1x.pth
     │   ├── configs/
     │   ├── lib/
     │   └── tools/
     │
-    ├── segment-anything/         (SAM repo)
+    ├── segment-anything/               # SAM repository
     │
-    ├── images/              # your test images
-    ├── msr_outputs/         # inference results will appear here
+    ├── coco/                           # COCO dataset for MSR-CNN
+    │   ├── images/
+    │   │   └── val2017/
+    │   └── annotations/
+    │       └── instances_val2017.json
     │
-    └── Ms_sam_project_notebook.ipynb
-
+    ├── images/                         # YOUR test images for SAM + visualisation
+    │
+    ├── msr_outputs/                    # MSR-CNN inference results
+    │
+    └── Ms_sam_project_notebook.ipynb   # final Jupyter notebook
 
  2) Clone SAM and install (official):
-    git clone https://github.com/facebookresearch/segment-anything.git
-     download SAM weights (e.g., sam_vit_b_01ec64.pth https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/sams/sam_vit_b_01ec64.pth?download=true) 
-       and place under msr_sam/models/
+    -git clone https://github.com/facebookresearch/segment-anything.git
+    -download SAM weights (e.g., sam_vit_b_01ec64.pth https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/sams/sam_vit_b_01ec64.pth?download=true) 
+    -place under msr_sam/models/
 
  3) Clone Mask Scoring R-CNN (official):
-    git clone https://github.com/zjhuang22/maskscoring_rcnn.git
-    %cd maskscoring_rcnn
-    First build the extensions manually:
-    python setup.py build_ext --inplace
-    python -c "import maskrcnn_benchmark; print('SUCCESS: maskrcnn_benchmark imported successfully')"
+    -git clone https://github.com/zjhuang22/maskscoring_rcnn.git
+    -cd maskscoring_rcnn
+    -python setup.py build_ext --inplace
+    -python -c "import maskrcnn_benchmark; print('SUCCESS: maskrcnn_benchmark imported successfully')"
 
- 4) Prepare a small dataset for experiments:
+ 4) Download the coco dataset using coco.py 
+
+ 5) Prepare a small dataset for experiments:
     - Use a COCO val subset (50-300 images) or Pascal VOC subset
     - Ensure you have image files in the folder: images/
 
- 5) Run MSR-CNN inference to generate outputs:
+6) Run MSR-CNN inference to generate outputs:
     - Choose the model: mask_scoring_rcnn_R-50-FPN_1x.pth
       (https://onedrive.live.com/?authkey=%21AIp9w89BB858UAE&id=1B7A5C8036695F7B%21832&cid=1B7A5C8036695F7B)
     - Place it inside: maskscoring_rcnn/checkpoints/
