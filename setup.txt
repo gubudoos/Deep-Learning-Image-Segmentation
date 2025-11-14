@@ -8,31 +8,31 @@
     -pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 
     Create this Directory Structure:
-    msr_sam/
-    │
-    ├── models/
-    │   └── sam_vit_b_01ec64.pth        # SAM checkpoint
-    │
-    ├── maskscoring_rcnn/               # MSR-CNN repository
-    │   ├── checkpoints/
-    │   │   └── mask_scoring_rcnn_R-50-FPN_1x.pth
-    │   ├── configs/
-    │   ├── lib/
-    │   └── tools/
-    │
-    ├── segment-anything/               # SAM repository
-    │
-    ├── coco/                           # COCO dataset for MSR-CNN
-    │   ├── images/
-    │   │   └── val2017/
-    │   └── annotations/
-    │       └── instances_val2017.json
-    │
-    ├── images/                         # YOUR test images for SAM + visualisation
-    │
-    ├── msr_outputs/                    # MSR-CNN inference results
-    │
-    └── Ms_sam_project_notebook.ipynb   # final Jupyter notebook
+     msr_sam/
+     │
+     ├── coco2017/                # COCO 2017 dataset 
+     │   └── val2017/ 
+     │   ├── annotations/
+     │       │── instances_val2017.json
+     │       └── instances_train2017.json
+     │
+     ├── models/
+     │   └── sam_vit_b_01ec64.pth
+     │
+     ├── maskscoring_rcnn/         (MSR-CNN repo)
+     │   ├── checkpoints/
+     │   │   └── mask_scoring_rcnn_R-50-FPN_1x.pth
+     │   ├── configs/
+     │   ├── lib/
+     │   └── tools/
+     │
+     ├── segment-anything/         (SAM repo)
+     │
+     ├── images/              # your test images
+     ├── msr_outputs/         # inference results will appear here
+     │
+     └── Ms_sam_project_notebook.ipynb
+  
 
  2) Clone SAM and install (official):
     -git clone https://github.com/facebookresearch/segment-anything.git
