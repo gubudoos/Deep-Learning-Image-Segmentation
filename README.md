@@ -6,7 +6,7 @@ Deep learning experiments in image segmentation, built around a from-scratch PyT
 
 ```
 DLImageSegmentation/
-├── Paper_Implementation_Using_NYUDv2_Dataste.ipynb   # ⭐ Main notebook — Deep CRF semantic segmentation on NYUDv2
+├── Paper_Implementation_Using_NYUDv2_Dataset.ipynb   # ⭐ Main notebook — Deep CRF semantic segmentation on NYUDv2
 ├── image-segmentation.ipynb                          # Supplementary: Mask Scoring R-CNN + SAM on COCO (Kaggle)
 ├── coco.sh                                           # SLURM batch script to download the COCO 2014 dataset
 ├── setup.txt                                         # Environment / folder layout notes for the MSR-CNN + SAM pipeline
@@ -16,7 +16,7 @@ DLImageSegmentation/
 └── README.md
 ```
 
-## Main file: `Paper_Implementation_Using_NYUDv2_Dataste.ipynb`
+## Main file: `Paper_Implementation_Using_NYUDv2_Dataset.ipynb`
 
 This notebook implements a **Deep Conditional Random Field (CRF)** for semantic segmentation, following the piecewise-training approach of *Lin et al., "Efficient Piecewise Training of Deep Structured Models for Semantic Segmentation," CVPR 2016*, adapted to the Hugging Face `jagennath-hari/nyuv2` dataset (40-class NYUDv2 labels).
 
@@ -78,7 +78,7 @@ The notebook was originally executed on a CUDA GPU with `torch==2.6.0+cu124`; re
 
 5. **Launch Jupyter and open the main notebook**
    ```bash
-   jupyter notebook Paper_Implementation_Using_NYUDv2_Dataste.ipynb
+   jupyter notebook Paper_Implementation_Using_NYUDv2_Dataset.ipynb
    ```
    The first run downloads the NYUDv2 data automatically via the Hugging Face `datasets` library (`jagennath-hari/nyuv2`), so an internet connection is required.
 
